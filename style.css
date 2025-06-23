@@ -228,6 +228,13 @@ main.container {
   border-color: var(--primary);
   color: var(--light) !important;
 }
+.btn-success:disabled,
+.btn-success.disabled {
+  background-color: var(--card-bg) !important;
+  border-color: var(--border-color) !important;
+  color: rgba(224, 224, 224, 0.4) !important; /* Soluk metin rengi */
+  cursor: not-allowed;
+}
 
 /* Modal */
 .modal-content {
