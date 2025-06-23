@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <title>GameRa - Anasayfa</title>
+  </head>
+  <body class="bg-dark">
+
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+      <div class="container">
+        <a class="navbar-brand font-weight-bold" href="#">GameRa</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Menüyü Aç">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNavbar">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active"><a class="nav-link" href="#">Anasayfa</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Oyunlar</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Hakkımızda</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">İletişim</a></li>
+            <!-- Sepet/Checkout ikonu -->
+            <li class="nav-item ml-3">
+              <a href="#" class="nav-link position-relative" style="font-size:1.5rem;" data-toggle="modal" data-target="#cartModal" id="cartIconLink">
+                <svg width="26" height="26" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M0 1a1 1 0 0 1 1-1h1.11a1 1 0 0 1 .98.8L3.89 3H14a1 1 0 0 1 .98 1.2l-1.5 8A1 1 0 0 1 12.5 13H4a1 1 0 0 1-.98-.8L1.61 2H1a1 1 0 0 1-1-1zm3.14 3l1.25 6.25A1 1 0 0 0 5.36 11h7.14a1 1 0 0 0 .97-.76l1.25-6.25H3.14z"/>
+                </svg>
+                <span id="cartCount" class="badge badge-warning position-absolute" style="top:0; right:0; font-size:0.8rem;">0</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- Navbar End -->
+
+    <!-- Header Start -->
+    <header class="bg-primary text-white py-4 mb-4">
+      <div class="container">
+        <h1 class="mb-0">GameRa</h1>
+        <p class="mb-0">Oyun Dünyasına Hoşgeldiniz!</p>
+      </div>
+    </header>
+    <!-- Header End -->
+
+    <!-- Content Start -->
+    <main class="container">
+      <div class="row justify-content-center" id="gamesArea">
+        <!-- Oyun kartları buraya dinamik olarak eklenecek -->
+      </div>
+    </main>
+    <!-- Content End -->
+
+    <!-- Modals Alanı -->
+    <div id="modalsArea"></div>
+
+    <!-- Sepet Modalı -->
+    <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark text-white">
+          <div class="modal-header border-0">
+            <h5 class="modal-title" id="cartModalLabel">Sepetiniz</h5>
+            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Kapat">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" id="cartItems">
+            <p>Sepetiniz boş.</p>
+          </div>
+          <div class="modal-footer border-0">
+            <a href="checkout.html" id="checkoutBtn" class="btn btn-success btn-block disabled" tabindex="-1" aria-disabled="true">Ödeme Yap</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Start -->
+    <footer class="bg-primary text-white text-center py-3 mt-4">
+      <div class="container">
+        <p class="mb-0">&copy; 2025 GameRa. Tüm hakları saklıdır.</p>
+      </div>
+    </footer>
+    <!-- Footer End -->
+
+    <!-- Yukarı Çık Butonu -->
+    <button id="scrollTopBtn" title="Yukarı Çık">
+      <svg viewBox="0 0 24 24"><path d="M12 8l6 6H6z"/></svg>
+    </button>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script>
+      // Yukarı çık butonu
+      var scrollBtn = document.getElementById("scrollTopBtn");
+      window.onscroll = function() {
+        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+          scrollBtn.style.display = "flex";
+        } else {
+          scrollBtn.style.display = "none";
+        }
+      };
+      scrollBtn.onclick = function() {
+        window.scrollTo({top: 0, behavior: 'smooth'});
+      };
+
+      // Sepet verisi (localStorage ile paylaşmak için)
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+      // Oyunları JSON'dan yükle ve kartları oluştur
+      fetch('games.json')
+        .then(res => res.json())
+        .then(games => {
+          const gamesArea = document.getElementById('gamesArea');
+          const modalsArea = document.getElementById('modalsArea');
+          games.forEach((game, i) => {
+            // Kart HTML'i
+            const card = document.createElement('div');
+            card.className = "col-12 col-sm-6 col-md-4 col-lg-3 mb-4 d-flex";
+            card.innerHTML = `
+              <div class="card w-100 shadow" data-price="${game.fiyat}">
+                <span class="badge badge-success game-price-badge">$${game.fiyat.toFixed(2)}</span>
+                <img src="${game.kapak}" class="card-img-top" alt="${game.baslik}">
+                <div class="card-body d-flex flex-column">
+                  <h5 class="card-title">${game.baslik}</h5>
+                  <p class="card-text">${game.ozet}</p>
+                  <div class="d-flex mt-auto">
+                    <button class="btn btn-success btn-sm mr-2 add-to-cart" data-title="${game.baslik}" data-fiyat="${game.fiyat}">Sepete Ekle</button>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#modal${i}">Açıklama</button>
+                  </div>
+                </div>
+              </div>
+            `;
+            gamesArea.appendChild(card);
+
+            // Modal HTML'i
+            const modal = document.createElement('div');
+            modal.className = "modal fade";
+            modal.id = `modal${i}`;
+            modal.tabIndex = -1;
+            modal.setAttribute('aria-labelledby', `modal${i}Label`);
+            modal.setAttribute('aria-hidden', 'true');
+            modal.innerHTML = `
+              <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content bg-dark text-white">
+                  <div class="modal-header border-0">
+                    <h5 class="modal-title" id="modal${i}Label">${game.baslik}</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Kapat">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row">
+                      <div class="col-md-6 mb-2">
+                        <img src="${game.oyunici1}" class="img-fluid rounded" alt="${game.baslik} Oyun İçi">
+                      </div>
+                      <div class="col-md-6 mb-2">
+                        <img src="${game.oyunici2}" class="img-fluid rounded" alt="${game.baslik} Oyun İçi 2">
+                      </div>
+                    </div>
+                    <p class="mt-3">${game.aciklama}</p>
+                  </div>
+                </div>
+              </div>
+            `;
+            modalsArea.appendChild(modal);
+          });
+
+          // Sepete ekle butonlarını dinamik olarak bağla
+          document.querySelectorAll('.add-to-cart').forEach(btn => {
+            btn.onclick = function() {
+              const title = btn.getAttribute('data-title');
+              const price = parseFloat(btn.getAttribute('data-fiyat'));
+              if (!cart.some(item => item.title === title)) {
+                cart.push({ title, price });
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCart();
+              }
+            }
+          });
+
+          // Sayfa yüklenince sepeti güncelle
+          updateCart();
+        });
+
+      // Sepet sayacı ve modal içeriği güncelle
+      function updateCart() {
+        const cartCount = document.getElementById('cartCount');
+        document.getElementById('cartItems').innerHTML = "";
+        const checkoutBtn = document.getElementById('checkoutBtn');
+        if (cart.length === 0) {
+          cartCount.style.display = "none";
+          document.getElementById('cartItems').innerHTML = "<p>Sepetiniz boş.</p>";
+          checkoutBtn.classList.add('disabled');
+          checkoutBtn.setAttribute('tabindex', '-1');
+          checkoutBtn.setAttribute('aria-disabled', 'true');
+        } else {
+          cartCount.style.display = "inline-block";
+          cartCount.textContent = cart.length;
+          let total = 0;
+          document.getElementById('cartItems').innerHTML =
+            "<ul class='list-group mb-3'>" +
+            cart.map((item, idx) => {
+              total += item.price;
+              return `<li class='list-group-item bg-dark text-white border-secondary d-flex justify-content-between align-items-center">
+                <span>${item.title}</span>
+                <span>
+                  <span class="badge badge-success mr-2">$${item.price.toFixed(2)}</span>
+                  <button class="btn btn-danger btn-sm remove-from-cart" data-index="${idx}" title="Sepetten Çıkar">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                      <path d="M2.5 2.5l11 11m0-11l-11 11" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                  </button>
+                </span>
+              </li>`;
+            }).join('') +
+            "</ul>" +
+            `<div class="d-flex justify-content-between align-items-center px-2">
+              <strong>Toplam:</strong>
+              <span class="badge badge-warning" style="font-size:1.1rem;">$${total.toFixed(2)}</span>
+            </div>`;
+
+          checkoutBtn.classList.remove('disabled');
+          checkoutBtn.removeAttribute('tabindex');
+          checkoutBtn.removeAttribute('aria-disabled');
+        }
+
+        // Sepetten çıkarma butonlarını bağla
+        document.querySelectorAll('.remove-from-cart').forEach(btn => {
+          btn.onclick = function() {
+            const idx = parseInt(btn.getAttribute('data-index'));
+            cart.splice(idx, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCart();
+          }
+        });
+      }
+
+      // Sepet boşsa checkout.html'e gitmeyi engelle
+      document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('checkoutBtn').addEventListener('click', function(e) {
+          if (cart.length === 0) {
+            e.preventDefault();
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

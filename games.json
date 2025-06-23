@@ -1,0 +1,92 @@
+[
+  {
+    "baslik": "Dying Light",
+    "ozet": "Açık dünya zombi oyununda parkur ve hayatta kalma.",
+    "aciklama": "Dying Light, parkur ve hayatta kalma mekaniklerini birleştiren bir açık dünya zombi oyunudur. Gündüzleri şehirde serbestçe dolaşabilir, geceleri ise ölümcül yaratıklardan kaçmak zorunda kalırsınız. Silah üretimi, görevler ve çok oyunculu mod ile uzun soluklu bir deneyim sunar.",
+    "fiyat": 29.99,
+    "kapak": "images/dying_light.jpg",
+    "oyunici1": "images/dying_light_oyunici1.jpg",
+    "oyunici2": "images/dying_light_oyunici2.jpg"
+  },
+  {
+    "baslik": "Witcher 3",
+    "ozet": "Geralt'ın kayıp kızı Ciri'yi bulmak için çıktığı destansı yolculuk.",
+    "aciklama": "Witcher 3: Wild Hunt, Geralt'ın kayıp kızı Ciri'yi bulmak için çıktığı destansı bir yolculuğu konu alır. Açık dünyası, derin hikayesi ve yan görevleriyle RPG türünün en iyi örneklerinden biridir.",
+    "fiyat": 39.99,
+    "kapak": "images/witcher3.jpg",
+    "oyunici1": "images/witcher3_oyunici1.jpg",
+    "oyunici2": "images/witcher3_oyunici2.jpg"
+  },
+  {
+    "baslik": "Cyberpunk 2077",
+    "ozet": "Night City'nin neon ışıkları altında geçen bir açık dünya RPG oyunu.",
+    "aciklama": "Cyberpunk 2077, Night City'nin neon ışıkları altında geçen bir açık dünya RPG oyunudur. Karakterinizi özelleştirip, siber implantlarla güçlendirebilir ve şehrin yeraltı dünyasında kendi yolunuzu çizebilirsiniz.",
+    "fiyat": 59.99,
+    "kapak": "images/cpunk2077.jpg",
+    "oyunici1": "images/cpunk2077_oyunici1.jpg",
+    "oyunici2": "images/cpunk2077_oyunici2.jpg"
+  },
+  {
+    "baslik": "Red Dead Redemption 2",
+    "ozet": "1899 Amerika'sında geçen bir vahşi batı hikayesi.",
+    "aciklama": "Red Dead Redemption 2, 1899 Amerika'sında geçen bir vahşi batı hikayesidir. Arthur Morgan ve Van der Linde çetesinin hayatta kalma mücadelesini, muhteşem grafikler ve detaylı bir dünya ile deneyimleyin.",
+    "fiyat": 59.99,
+    "kapak": "images/rdr2.jpg",
+    "oyunici1": "images/rdr2_oyunici1.jpg",
+    "oyunici2": "images/rdr2_oyunici2.jpg"
+  },
+  {
+    "baslik": "Assassin's Creed",
+    "ozet": "Tarihi mekanlarda geçen bir aksiyon-macera oyunu.",
+    "aciklama": "Assassin's Creed, tarihi mekanlarda geçen bir aksiyon-macera oyunudur. Gizlilik, parkur ve suikast mekanikleriyle ünlüdür.",
+    "fiyat": 19.99,
+    "kapak": "images/assassinsc.jpg",
+    "oyunici1": "images/assassinsc_oyunici1.jpg",
+    "oyunici2": "images/assassins_oyunici2.jpg"
+  },
+  {
+    "baslik": "Ark: Survival Evolved",
+    "ozet": "Dinozorlarla dolu bir adada hayatta kalmaya çalıştığınız bir açık dünya oyunu.",
+    "aciklama": "Ark: Survival Evolved, dinozorlarla dolu bir adada hayatta kalmaya çalıştığınız bir açık dünya oyunudur. Kendi barınağınızı inşa edin, dinozorları evcilleştirin ve diğer oyuncularla mücadele edin.",
+    "fiyat": 29.99,
+    "kapak": "images/arkevolved.jpg",
+    "oyunici1": "images/arkevolved_oyunici1.jpg",
+    "oyunici2": "images/arkevolved_oyunici2.jpg"
+  },
+  {
+    "baslik": "God of War",
+    "ozet": "Kratos ve oğlu Atreus'un İskandinav mitolojisinde geçen epik yolculuğu.",
+    "aciklama": "God of War, Kratos ve oğlu Atreus'un İskandinav mitolojisinde geçen epik yolculuğunu konu alır. Sürükleyici hikayesi, etkileyici dövüş mekanikleri ve muhteşem görselliğiyle öne çıkar.",
+    "fiyat": 49.99,
+    "kapak": "images/godofwar.jpg",
+    "oyunici1": "images/godofwar_oyunici1.jpg",
+    "oyunici2": "images/godofwar_oyunici2.jpg"
+  },
+  {
+    "baslik": "Rainbow Six Siege",
+    "ozet": "Taktiksel oynanışa ve takım çalışmasına dayalı bir FPS oyunu.",
+    "aciklama": "Rainbow Six Siege, taktiksel oynanışa ve takım çalışmasına dayalı bir FPS oyunudur. Farklı operatörler, yıkılabilir ortamlar ve stratejik planlama ile öne çıkar.",
+    "fiyat": 19.99,
+    "kapak": "images/rainbow6.jpg",
+    "oyunici1": "images/rainbow6_oyunici1.jpg",
+    "oyunici2": "images/rainbow6_oyunici2.jpg"
+  },
+  {
+    "baslik": "Sons of the Forest",
+    "ozet": "Korku ve hayatta kalma unsurlarını birleştiren bir oyun.",
+    "aciklama": "Sons of the Forest, korku ve hayatta kalma unsurlarını birleştiren bir oyundur. Tehlikeli yaratıklarla dolu bir ormanda kaynak toplayıp barınak inşa ederek hayatta kalmaya çalışırsınız.",
+    "fiyat": 29.99,
+    "kapak": "images/sotheforest.jpg",
+    "oyunici1": "images/sotheforest_oyunici1.jpg",
+    "oyunici2": "images/sotheforest_oyunici2.jpg"
+  },
+  {
+    "baslik": "Subnautica",
+    "ozet": "Okyanus gezegeninde geçen bir hayatta kalma ve keşif oyunu.",
+    "aciklama": "Subnautica, okyanus gezegeninde geçen bir hayatta kalma ve keşif oyunudur. Derin denizlerde kaynak toplayıp, yaratıklardan kaçarak hayatta kalmaya çalışırsınız.",
+    "fiyat": 24.99,
+    "kapak": "images/subnautica.jpg",
+    "oyunici1": "images/subnautica_oyunici1.jpg",
+    "oyunici2": "images/subnautica_oyunici2.jpg"
+  }
+]
