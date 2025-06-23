@@ -1,30 +1,40 @@
+/* Font Awesome & Google Fonts */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
 /* Temel renkler */
 :root {
-  --main-bg: #112D4E;
-  --card-bg: #1a3458;
-  --primary: #3F72AF;
-  --secondary: #DBE2EF;
-  --light: #F9F7F7;
-  --text: #F9F7F7;
-  --badge-success: #3F72AF;
-  --badge-warning: #DBE2EF;
+  --main-bg: #121212;
+  --card-bg: #1e1e1e;
+  --primary: #9147ff; /* Twitch Purple */
+  --secondary: #a970ff;
+  --light: #ffffff;
+  --text: #e0e0e0;
+  --border-color: rgba(255, 255, 255, 0.1);
 }
 
 /* Genel arka plan ve yazı rengi */
 html, body {
   background-color: var(--main-bg) !important;
   color: var(--text);
+  font-family: 'Poppins', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
 }
 
 /* Navbar */
 .navbar,
 .bg-primary {
-  background-color: var(--primary) !important;
+  background-color: rgba(30, 30, 30, 0.8) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-color);
   color: var(--light);
 }
 
 .navbar .navbar-brand,
 .navbar .nav-link {
+  font-weight: 600;
   color: var(--light) !important;
 }
 
@@ -34,20 +44,52 @@ html, body {
   color: var(--secondary) !important;
 }
 
-/* Header */
-header.bg-primary {
-  background-color: var(--primary) !important;
-  color: var(--light);
+/* Navbar linklerine animasyonlu underline */
+.navbar .nav-link {
+  position: relative;
+  transition: color 0.2s;
+}
+.navbar .nav-link::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 2px;
+  background: var(--secondary);
+  transition: width 0.3s;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+.navbar .nav-link:hover::after,
+.navbar .nav-link.active::after {
+  width: 100%;
+}
+
+/* Main Content Padding */
+main.container {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
 /* Kartlar */
 .card {
   background-color: var(--card-bg);
   color: var(--text);
-  border: 1px solid var(--primary);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
   position: relative;
-  box-shadow: 0 2px 12px rgba(31, 50, 80, 0.15);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, filter 0.4s ease;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: cardFadeIn 0.7s forwards;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  border-color: var(--primary);
+  z-index: 10;
 }
 
 .card-title,
@@ -55,9 +97,38 @@ header.bg-primary {
   color: var(--text);
 }
 
-.card-img-top {
+.card-img-container {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 Aspect Ratio */
+  overflow: hidden;
   border-radius: 12px 12px 0 0;
-  background: var(--main-bg);
+  background: #2a2a2a;
+}
+
+.card-img-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 0; /* Parent handles radius */
+  transition: transform 0.4s cubic-bezier(.4,2,.6,1);
+}
+.card:hover .card-img-top {
+  transform: scale(1.07);
+}
+
+.game-card-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), border-radius 0.5s ease;
 }
 
 /* Kart fiyat etiketi */
@@ -66,41 +137,96 @@ header.bg-primary {
   top: 12px;
   right: 12px;
   z-index: 2;
-  opacity: 0;
-  transition: opacity 0.2s;
-  pointer-events: none;
-  background: var(--badge-success) !important;
+  background: var(--primary) !important;
   color: var(--light) !important;
-  font-size: 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
   padding: 0.5em 0.9em;
-  border-radius: 1em;
+  border-radius: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: opacity 0.3s ease;
 }
-.card:hover .game-price-badge {
+
+/* Video Lightbox */
+.video-lightbox-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Hafif karartılmış ve blurlu arka plan */
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 1045;
+  opacity: 0;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.4s ease;
+}
+
+.video-lightbox-overlay.active {
   opacity: 1;
+  pointer-events: auto;
+}
+
+#ambientCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: scale(1.2); /* Işığın kenarlara daha iyi yayılması için büyütme */
+  z-index: 0; /* Overlay'in arka planı olarak davranır */
+  filter: blur(150px) brightness(1.0) saturate(2.0); /* Dengeli ve estetik ışık */
+  opacity: 0.65; /* Işığın blurlu arka planla daha iyi harmanlanması için */
+  transition: opacity 0.4s ease;
+}
+
+#lightboxVideo {
+  /* Maksimum görüntüleme alanını tanımlayalım */
+  max-width: 90vw;
+  max-height: 80vh;
+  /* Videonun bu alana kırpılmadan sığmasını sağlayalım */
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 15px 50px rgba(0,0,0,0.6);
+  transform: scale(0.9);
+  transition: transform 0.4s cubic-bezier(.4,2,.6,1);
+  position: relative; /* Katmanlama için gereklidir */
+  z-index: 1; /* Canvas'ın önünde olmasını sağlar */
+}
+
+/* Lightbox aktifken videoyu büyüt */
+.video-lightbox-overlay.active #lightboxVideo {
+  transform: scale(1);
 }
 
 /* Kart butonları */
 .btn-primary {
   background-color: var(--primary);
   border-color: var(--primary);
-  color: var(--light);
+  color: var(--light) !important;
+  font-weight: 600;
 }
 .btn-primary:hover,
 .btn-primary:focus {
   background-color: var(--secondary);
   border-color: var(--secondary);
-  color: var(--main-bg);
+  color: var(--light) !important;
 }
 .btn-success {
-  background-color: var(--badge-success);
-  border-color: var(--badge-success);
-  color: var(--light);
+  background-color: transparent;
+  border-color: var(--primary);
+  color: var(--primary) !important;
+  font-weight: 600;
 }
 .btn-success:hover,
 .btn-success:focus {
-  background-color: var(--secondary);
-  border-color: var(--secondary);
-  color: var(--main-bg);
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: var(--light) !important;
 }
 
 /* Modal */
@@ -108,7 +234,7 @@ header.bg-primary {
   background-color: var(--card-bg);
   color: var(--text);
   border-radius: 16px;
-  border: 1px solid var(--primary);
+  border: 1px solid var(--border-color);
 }
 .modal-header,
 .modal-footer {
@@ -127,31 +253,31 @@ header.bg-primary {
 .list-group-item {
   background-color: var(--card-bg) !important;
   color: var(--text) !important;
-  border-color: var(--primary) !important;
+  border-color: var(--border-color) !important;
 }
 .badge-success {
-  background-color: var(--badge-success) !important;
+  background-color: var(--primary) !important;
   color: var(--light) !important;
 }
 .badge-warning {
-  background-color: var(--badge-warning) !important;
-  color: var(--main-bg) !important;
+  background-color: var(--secondary) !important;
+  color: var(--main-bg) !important; /* Keep contrast */
 }
 
 /* Footer */
 footer.bg-primary {
-  background-color: var(--primary) !important;
+  background: var(--card-bg) !important;
   color: var(--light) !important;
-  border-top: 1px solid var(--secondary);
+  border-top: 1px solid var(--border-color);
 }
 
 /* Yukarı çık butonu */
 #scrollTopBtn {
   position: fixed;
-  left: 30px;
+  right: 30px;
   bottom: 30px;
   z-index: 999;
-  background: var(--card-bg);
+  background: var(--primary);
   border: none;
   border-radius: 50%;
   width: 48px;
@@ -160,10 +286,11 @@ footer.bg-primary {
   align-items: center;
   justify-content: center;
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  transition: background 0.2s;
+  transition: background 0.2s, transform 0.2s;
 }
 #scrollTopBtn:hover {
-  background: var(--primary);
+  background: var(--secondary);
+  transform: scale(1.1);
 }
 #scrollTopBtn svg {
   fill: var(--light);
@@ -180,12 +307,78 @@ footer.bg-primary {
 /* Modal görsel */
 .modal-body img {
   background: var(--main-bg);
-  border: 2px solid var(--secondary);
+  border: 2px solid var(--border-color);
+  width: 100%;
+  max-width: 100%;
+  height: 220px; /* veya 240px, ihtiyaca göre ayarlayabilirsiniz */
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  margin-bottom: 8px;
+  border-radius: 8px;
 }
 
 /* Responsive başlıklar */
 @media (max-width: 576px) {
   header.bg-primary h1 {
     font-size: 1.5rem;
+  }
+}
+
+/* Butonlara animasyon efekti */
+.btn {
+  position: relative;
+  overflow: hidden;
+}
+.btn:after {
+  content: "";
+  display: block;
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  width: 100px; height: 100px;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  background: rgba(255,255,255,0.3);
+  transition: transform 0.4s, opacity 0.8s;
+  opacity: 0;
+}
+.btn:active:after {
+  transform: translate(-50%, -50%) scale(1.5);
+  opacity: 1;
+  transition: 0s;
+}
+
+/* Modal animasyonu */
+.modal.fade .modal-dialog {
+  transform: translateY(-50px) scale(0.95);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(.4,2,.6,1);
+}
+.modal.show .modal-dialog {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+/* Sepet animasyonu */
+#cartItems ul.list-group {
+  animation: fadeInDown 0.5s;
+}
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+
+/* Arama çubuğu odaklandığında stil */
+#searchInput:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(145, 71, 255, 0.4);
+  transition: box-shadow 0.2s;
+}
+
+@keyframes cardFadeIn {
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
